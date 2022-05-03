@@ -8,6 +8,7 @@ import ElementUI from 'element-ui'
 
 // import './permission' // permission control
 import './utils/error-log' // error log
+import './icons' // icon
 
 import 'element-ui/lib/theme-chalk/index.css'
 import 'iview/dist/styles/iview.css'
@@ -19,7 +20,7 @@ import '@/styles/index.scss' // global css
 // import { OhVueIcon } from "oh-vue-icons";
 // Vue.component("v-icon", OhVueIcon);
 
-
+import * as filters from './filters' // global filters
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -51,15 +52,26 @@ import iView from 'iview';
 
 
 
+// register global utility filters
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
+
 Vue.config.productionTip = false
 Vue.use(iView)
 
+
+// new Vue({
+//   el: '#app',
+//   router,
+//   store,
+//   components: { App },
+//   template: '<App/>'
+// })
 
 new Vue({
   el: '#app',
   router,
   store,
-  components: { App },
-  template: '<App/>'
+  render: h => h(App)
 })
-
