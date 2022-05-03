@@ -6,6 +6,8 @@ import Rank from '@/views/Rank_new'
 
 Vue.use(VueRouter)
 
+/* Router Modules */
+import tableRouter from './modules/table'
 const routes = [
   {
     path: '/',
@@ -24,6 +26,11 @@ const routes = [
   }
 ]
 
+
+export const asyncRoutes = [
+  tableRouter,
+  { path: '*', redirect: '/404', hidden: true }
+]
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,

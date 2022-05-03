@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Message, MessageBox } from 'element-ui'
 import store from '@/vuex/index'
-import router from '@/router/router'
+import { getToken } from '@/utils/auth'
 
 
 // 创建axios实例
@@ -15,6 +15,14 @@ const service = axios.create({
 // request拦截器
 service.interceptors.request.use(config => {
   // alert(store.state.token) //token可以通过此方式拿到
+
+    //if (store.getters.token) {
+      //// let each request carry token
+      //// ['X-Token'] is a custom headers key
+      //// please modify it according to the actual situation
+      //config.headers['X-Token'] = getToken()
+    //}
+    
   if (store.state.token != '') {
     config.headers['Authorization'] = store.state.token // 让每个请求携带自定义token 请根据实际情况自行修改
   }
@@ -22,7 +30,7 @@ service.interceptors.request.use(config => {
 }, error => {
   // Do something with request error
   console.log(error) // for debug
-  Promise.reject(error)
+  return Promise.reject(error)
 })
 
 // respone拦截器
@@ -46,7 +54,7 @@ service.interceptors.response.use(
 
         //生产环境
         Message({
-          message: res.message,
+          message: res.message || 'Error',
           type: 'error',
           duration: 5 * 1000
         })

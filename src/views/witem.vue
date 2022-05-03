@@ -1,50 +1,58 @@
 <template>
-  <div class="witem" @click="clickHere(boxItem.url)" >
-    <img class="imgLeft" :src="boxItem.namepic" />
-    <span class="title" >{{
-      boxItem.name
-    }}</span>
+  <div class="witem"  v-if="isShow">
+    <img class="imgLeft" :src="boxItem.namepic" @click="clickHere(boxItem.url)" />
+    <span class="title" @click="clickHere(boxItem.url)">{{ boxItem.name }}</span>
     <el-tooltip
       class="item_tips"
       effect="dark"
       :content="boxItem.tips"
       placement="right-start"
     >
-    <img class="imgRight" :src="boxItem.tipspic" />
-    <!-- <img class="imgRightCross" src="boxItem.tipspic" /> -->
-    <!-- <v-icon name="LaWindowCloseSolid"></v-icon> -->
-    <svg aria-hidden="true" width="10.08" height="10.08" viewBox="0 0 32 32" fill="#222F3D" class="ov-icon" style="font-size:2.88em;" data-v-5862ef01=""><path d="M5 5v22h22V5zm2 2h18v18H7zm4.688 3.313l-1.407 1.406L14.562 16l-4.343 4.344 1.406 1.406 4.344-4.344 4.312 4.313 1.407-1.407L17.375 16l4.25-4.25-1.406-1.406-4.25 4.25z"></path></svg>
+      <img class="imgRight" :src="boxItem.tipspic" @click="clickHere(boxItem.url)" />
     </el-tooltip>
+    <svg
+      @click="removeItem()"
+      aria-hidden="true"
+      width="20.08"
+      height="20.08"
+      viewBox="0 0 32 32"
+      fill="#222F3D"
+      class="ov-icon"
+      style="font-size: 2.88em"
+      data-v-5862ef01=""
+    >
+      <path
+        d="M5 5v22h22V5zm2 2h18v18H7zm4.688 3.313l-1.407 1.406L14.562 16l-4.343 4.344 1.406 1.406 4.344-4.344 4.312 4.313 1.407-1.407L17.375 16l4.25-4.25-1.406-1.406-4.25 4.25z"
+      ></path>
+    </svg>
   </div>
 </template>
 
 <script>
-
-
 export default {
   name: "witem",
 
+
   props: {
+    tagItem: {
+        type: Object,
+        required: false,
+        default: () => ({})
+    },
     boxItem: {
       type: Object,
       required: false,
-      default: () => [
-        {
-          id: 1,
-          name: "xxxxx",
-          namepic: "/static/icon/a1.png",
-          tips: "东方财富是财经网站!",
-          tipspic: "/static/icon/fa_09.png",
-          tag: "财经",
-          url: "http://www.eastmoney.com",
-        },
-      ],
+      default: () => ({
+       
+      }),
     },
   },
   components: {},
   data() {
     return {
-            //public文件夹路径
+
+      isShow:true,
+      //public文件夹路径
       publicPath: process.env.BASE_URL,
       // imgLeft: require("@/assets/logo.png"),
       // imgRight: require("@/assets/logo.png"),
@@ -57,6 +65,19 @@ export default {
       console.log("参数：");
       console.log(param);
       javascript: window.open(param);
+    },
+    removeItem() {
+      //       console.log( this.tagItem);
+      //       console.log( this.boxItem);
+            
+      // this.tagItem.boxItems.forEach((item, index) => {
+      //   if (item.id === this.boxItem.id) {
+      //     this.tagItem.boxItems.splice(index, 1);
+      //   }
+      // });
+      // console.log( this.tagItem);
+      // 修改数据，然后提交到数据库
+      this.isShow=false;
     },
   },
 };
@@ -81,7 +102,6 @@ export default {
   // border-style: solid dashed;
   // padding: 0px 0px 0px 0px;
   border-style: dotted;
-
   border-width: thin;
 
   &:hover {
@@ -95,6 +115,7 @@ export default {
     border-color: #7e0606;
   }
   span {
+    flex-wrap: nowrap;
     color: #000000;
     font-size: 12px;
     font-family: LiSu;
@@ -106,10 +127,10 @@ export default {
   width: 20px;
   height: 20px;
 }
-.title {
-  font-family: LiSu;
-  font-size: 16px;
-}
+// .title {
+//   font-family: LiSu;
+//   font-size: 16px;
+// }
 .item_tips {
   font-family: LiSu;
   font-size: 12px;
