@@ -1,8 +1,15 @@
 import Vue from 'vue'
 import App from './App'
+import Cookies from 'js-cookie'
+
+import store from './vuex'
+
 import router from './router'
 
-import Cookies from 'js-cookie'
+
+import iView from 'iview';
+
+import 'iview/dist/styles/iview.css'
 
 import ElementUI from 'element-ui'
 
@@ -11,7 +18,7 @@ import './utils/error-log' // error log
 import './icons' // icon
 
 import 'element-ui/lib/theme-chalk/index.css'
-import 'iview/dist/styles/iview.css'
+
 import './assets/css/reset.css'
 
 import './styles/element-variables.scss'
@@ -46,9 +53,7 @@ Vue.use(ElementUI, {
 import VueDND from 'awe-dnd'
 Vue.use(VueDND)
 
-import store from './vuex'
 
-import iView from 'iview';
 
 
 

@@ -32,10 +32,17 @@ module.exports = {
   devServer: {
     port: port,
     open: true,
+    historyApiFallback: true,
+    noInfo: true,    
     overlay: {
       warnings: false,
       errors: true
     },
+    headers:{
+      'Access-Control-Allow-Origin':'*',
+    },
+    hotOnly: false,
+    disableHostCheck:true,
     before: require('./mock/mock-server.js')
   },
   configureWebpack: {
